@@ -8,10 +8,10 @@ jobs:
   backend:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           submodules: recursive
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.11"
           cache: pip
@@ -19,7 +19,7 @@ jobs:
             apps/api/requirements.txt
             streamtimelens/pyproject.toml
       - run: pip install -r apps/api/requirements.txt -e 'streamtimelens[dev]'
-      - run: PYTHONPATH=apps/api pytest -q apps/api/tests streamtimelens/tests
+      - run: PYTHONPATH=apps/api:src:third_party/TimeLens pytest -q apps/api/tests streamtimelens/tests
 
   frontend:
     runs-on: ubuntu-latest
@@ -27,8 +27,8 @@ jobs:
       run:
         working-directory: apps/web
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: "22"
           cache: npm
