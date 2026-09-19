@@ -19,7 +19,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=7", "ruff>=0.1"]
+dev = ["pytest>=7", "ruff==0.1.15"]
 jq01 = ["torch>=2.0"]
 lf01 = ["torch>=2.0"]
 hybrid-v3 = [
