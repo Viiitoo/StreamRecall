@@ -30,6 +30,8 @@ jobs:
               tail -200 /tmp/pytest.log
               echo '```'
             } >> "$GITHUB_STEP_SUMMARY"
+            failure=$(tail -120 /tmp/pytest.log | python -c 'import sys; value=sys.stdin.read(); print(value.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A"))')
+            echo "::error title=Python test failure::$failure"
             exit 1
           fi
 
