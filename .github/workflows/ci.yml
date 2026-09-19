@@ -19,7 +19,19 @@ jobs:
             apps/api/requirements.txt
             streamtimelens/pyproject.toml
       - run: pip install -r apps/api/requirements.txt -e 'streamtimelens[dev]'
-      - run: PYTHONPATH=apps/api:src:third_party/TimeLens pytest -q apps/api/tests streamtimelens/tests
+      - name: Run Python tests
+        shell: bash
+        run: |
+          set -o pipefail
+          if ! PYTHONPATH=apps/api:src:third_party/TimeLens pytest -q apps/api/tests streamtimelens/tests 2>&1 | tee /tmp/pytest.log; then
+            {
+              echo "### Python test failure"
+              echo '```text'
+              tail -200 /tmp/pytest.log
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
 
   frontend:
     runs-on: ubuntu-latest
