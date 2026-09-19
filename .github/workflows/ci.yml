@@ -18,6 +18,7 @@ jobs:
           cache-dependency-path: |
             apps/api/requirements.txt
             streamtimelens/pyproject.toml
+      - run: pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cpu
       - run: pip install -r apps/api/requirements.txt -e 'streamtimelens[dev]'
       - name: Run Python tests
         shell: bash
