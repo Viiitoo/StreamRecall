@@ -2,7 +2,6 @@ import math
 import json
 import hashlib
 import tempfile
-from dataclasses import asdict
 from pathlib import Path
 
 import numpy as np
@@ -82,7 +81,7 @@ def test_schema_and_union_are_fixed_and_permutation_deterministic():
     assert pool[0].span == pool[1].span
 
 
-def test_frozen_x1_revision_fixture_is_bit_equivalent():
+def test_frozen_x1_revision_fixture_is_numerically_equivalent():
     training = []
     for index in range(6):
         training.append(ExtentObservation(
@@ -96,12 +95,29 @@ def test_frozen_x1_revision_fixture_is_bit_equivalent():
         build_temporal_cell_tokens(_x1_metadata(), upper_bound_s=40.0), 40.0, None,
     )
     candidates, debug = predict_extent_candidates(pipeline, heldout)
-    payload = json.dumps(
-        {"candidates": [asdict(row) for row in candidates], "debug": list(debug)},
-        sort_keys=True, separators=(",", ":"), allow_nan=False,
-    ).encode()
-    # Archived from revision 8f8c3f702146ab2f5a4c8a41877f5330a2973f90.
-    assert hashlib.sha256(payload).hexdigest() == "b09611798641ad1f62c700cc90370d1c61d802091f270c551f2fa686f097f928"
+    # Numeric LAPACK implementations may differ in their final floating-point bits.
+    # Freeze the ranked semantics and predictions rather than hashing raw float reprs.
+    assert [row.frame_refs for row in candidates] == [
+        ("000000006.jpg",), ("000000007.jpg",), ("000000005.jpg",),
+        ("000000008.jpg",), ("000000004.jpg",), ("000000003.jpg",),
+        ("000000002.jpg",), ("000000001.jpg",),
+    ]
+    np.testing.assert_allclose(
+        [(row.start_s, row.end_s, row.score) for row in candidates],
+        [
+            (8.0053838895, 17.5621412632, 0.8764129226),
+            (8.0485446431, 17.6830233605, 0.8613719145),
+            (7.7724050193, 17.8943816627, 0.8490595105),
+            (8.5195850270, 18.3632804457, 0.8402339508),
+            (7.5486821064, 18.1269977895, 0.8248791442),
+            (6.0, 40.0, 0.3065111794),
+            (4.0, 40.0, 0.2920329955),
+            (2.0, 40.0, 0.2633675814),
+        ],
+        rtol=0,
+        atol=1e-6,
+    )
+    assert [row["cell_rank"] for row in debug] == [3, 5, 1, 7, 2, 4, 6, 8]
 
 
 def test_jq_feature_v1_boundary_open_closed_empty_and_normalization():
