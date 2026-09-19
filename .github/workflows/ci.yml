@@ -20,6 +20,7 @@ jobs:
             streamtimelens/pyproject.toml
       - run: pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cpu
       - run: pip install -r apps/api/requirements.txt -e 'streamtimelens[dev]'
+      - run: ruff check apps/api/app apps/api/tests streamtimelens/src streamtimelens/tests streamtimelens/scripts
       - name: Run Python tests
         shell: bash
         run: |
