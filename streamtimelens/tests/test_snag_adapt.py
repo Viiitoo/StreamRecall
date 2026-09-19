@@ -202,6 +202,7 @@ class SnAGAdaptTest(unittest.TestCase):
         )
         self.assertEqual(len(spans), 3)
 
+    @unittest.skipUnless((UPSTREAM / ".git").exists(), "requires optional pinned SnAG checkout")
     def test_pinned_upstream_verification_and_text_feature_preprocessing(self):
         self.assertEqual(verify_upstream_checkout(UPSTREAM), UPSTREAM.resolve())
         self.assertEqual(len(UPSTREAM_REVISION), 40)

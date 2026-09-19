@@ -13,9 +13,9 @@ setup(
     install_requires=[
         "PyYAML>=5.3",
         "msgpack>=1.0",
-        "numpy>=1.20",
+        "numpy>=1.20,<2",
         "Pillow>=7",
-        "opencv-python-headless>=4.5",
+        "opencv-python-headless>=4.5,<4.12",
         "transformers>=4.37,<5",
     ],
     extras_require={"dev": ["pytest>=7", "ruff>=0.1"], "jq01": ["torch>=2.0"]},
