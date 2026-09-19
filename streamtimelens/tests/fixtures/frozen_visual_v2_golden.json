@@ -1,0 +1,13 @@
+{
+  "candidate_ids": [
+    "frame-a3ebad37505a155a",
+    "frame-2ccc43bd68e5b46a",
+    "frame-93d1de812f74d7ea"
+  ],
+  "candidate_spans": [[0.0, 6.0], [0.0, 12.0], [2.0, 12.0]],
+  "coarse_candidate_ids": ["frame-a3ebad37505a155a"],
+  "coarse_evidence_ids": ["a.jpg", "b.jpg"],
+  "coarse_span": [0.0, 12.0],
+  "frozen_config_sha256": "cd682da421be2e4269367fb8bc7fd33923f54089c877d0f2da09db7a1840be0c",
+  "prompt_template_sha256": "ae2fa3bc602616785e212769fd31b479ca008dd58772e6c6813cd649110315ef"
+}

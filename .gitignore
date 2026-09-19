@@ -1,0 +1,37 @@
+# Large local model checkpoints and datasets are intentionally kept outside Git.
+/models/
+/third_party/TimeLens/data/
+
+# Regenerable local output.
+/.cache/
+/logs/
+/results/
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local environment and editor files.
+.venv/
+venv/
+.env
+.deps/
+*.tsbuildinfo
+apps/api/runtime/
+apps/runtime/
+apps/web/.next/
+apps/web/node_modules/
+apps/web/test-results/
+dist/
+docs/assets/
+apps/start-streamrecall.sh
+apps/start-streamrecall.sh.bak-*
+apps/windows-launcher/
+AGENTS.md
+CLAUDE.md
+.DS_Store
+.idea/
+.vscode/

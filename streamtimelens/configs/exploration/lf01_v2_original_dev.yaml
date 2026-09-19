@@ -1,0 +1,81 @@
+schema_version: 1
+stage: lf01_v2_original_dev_nested_oof
+method: LF-01
+revision: v2-original-r2
+parent_registry_path: results/ad2381daf9954ed79211afaabe4381cf5f5e932e/lf01/v2_original_dev/v2-original-r1/experiment_registry.json
+parent_registry_sha256: eb70a2503f6c9eb996427fe19c47c39efa71a3708b4eb12b35d29162c468558e
+data_role: development/consumed
+dataset: charades_sta_derived_dev_v1
+queries_path: artifacts/dev/dev_queries.jsonl
+queries_sha256: b3c6d0a11896d4e79d29f9ae1167c9d0ee97e37be6d00a3044d55abd744dc7f4
+videos_path: artifacts/dev/dev_videos.jsonl
+videos_sha256: d0d6683584a88120d089671de4d83c4dec1c6609b137be7cb1cd659766b97016
+model_hashes_path: artifacts/dev/model_hashes.json
+model_hashes_sha256: bdb3490930f3c7898897a326404196448b0579fffe39f42ea22479a73f261313
+clip_model_path: models/clip-vit-base-patch32
+clip_model_revision: 3d74acf9a28c67741b2f4f2ea7635f0aaf6f0268
+clip_model_content_sha256: 16d265fbd9c648b096d830bbeaf83a4c197f071a9b6e4c6685533b5f6028b20b
+clip_device: cuda:1
+clip_text_batch_size: 64
+snapshot_root: results/bfa72f103266161d9a58a8213fe5a1c67679ff2a/visual_v2_grid/uniform_raw/charades_sta_derived_dev_v1/3198966d0da2351a600ddb523930aee56b577ea599c4a104459ac2818fb7728a/dev-small-grid-v1
+snapshot_source_revision: bfa72f103266161d9a58a8213fe5a1c67679ff2a
+baseline_source_revision: b71e1266483050cc12e486b8ad1bff3a6fa91df2
+baseline_source_config_id: uniform_raw-1048576-727fe4b511a8
+baseline_shards:
+  - path: results/b71e1266483050cc12e486b8ad1bff3a6fa91df2/visual_v2_refiner_shard_0/predictions.jsonl
+    sha256: 30dcc334a78760eb5744776316228d4738bdfb200e0c7e7d9234999b2a75f36e
+  - path: results/b71e1266483050cc12e486b8ad1bff3a6fa91df2/visual_v2_refiner_shard_1/predictions.jsonl
+    sha256: e0b000c41100bfdc9179b3aecd34fe18d66987de23fda24a2c726dcc76509e65
+  - path: results/b71e1266483050cc12e486b8ad1bff3a6fa91df2/visual_v2_refiner_shard_2/predictions.jsonl
+    sha256: ffc9ed7595a103920e08d33fe5b84c348cb93232d1bbe020c79185115505f4be
+  - path: results/b71e1266483050cc12e486b8ad1bff3a6fa91df2/visual_v2_refiner_shard_3/predictions.jsonl
+    sha256: f27e667572d3a4fe778d5f7b4f3c7ce7e8609a40a6a656b018260f423ad088b4
+budget_bytes: 1048576
+arrival_ratios: [0.25, 0.5, 0.75, 1.0]
+eligibility: gt_end_le_query_arrival
+expected_video_count: 100
+expected_query_count: 219
+expected_baseline_observation_count: 876
+expected_eligible_observation_count: 552
+expected_snapshot_count: 276
+source: Charades
+duration_bucket: short
+outer_folds: 4
+outer_unit: video_id
+inner_validation: next_outer_fold
+seed: 20260911
+lf_device: cuda:1
+cublas_workspace_config: ":4096:8"
+candidate_generator: nested_x1_crossfit
+x1_generator_source_revision: 8f8c3f702146ab2f5a4c8a41877f5330a2973f90
+x1_safety_selector_used: false
+candidate_cap: 9
+extent_candidate_cap: 8
+feature_schema: lf_query_time_v2
+architecture: query-token-mha64h4-pairwise-gain-v2
+max_temporal_tokens: 256
+hidden_dim: 64
+attention_heads: 4
+loss_weights:
+  positive_saliency: 0.5
+  negative_pair_saliency: 0.5
+  quality: 1.0
+  gain: 1.0
+  listwise: 1.0
+  relative_regret: 2.0
+negative_pairing: deterministic_true_cross_video
+optimizer: AdamW
+learning_rate: 0.001
+weight_decay: 0.0001
+max_epochs: 100
+patience: 10
+epoch_selection: video_equal_candidate_miou
+training_weighting: video_equal
+acceptance_reference_jq_r2_miou: 0.400079
+minimum_recoverable_transmission: 0.2
+maximum_readout_p95_ms: 250.0
+bootstrap_resamples: 2000
+bootstrap_seed: 20260911
+d_lock_required: false
+formal_data_allowed: false
+original_video_read_allowed: false

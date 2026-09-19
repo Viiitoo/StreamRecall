@@ -1,0 +1,5 @@
+method: snag-adapt-pooled-B
+trigger: sequential-clip-grid
+writer: near-ring-adjacent-weighted-pooling
+retrieval: snag-provenance-head
+raw_cache: none

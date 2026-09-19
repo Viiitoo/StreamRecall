@@ -1,0 +1,5 @@
+method: evidence-fixed
+trigger: periodic
+writer: timelens_structured_v1
+retrieval: lexical_mmr
+raw_cache: boundary_and_ring

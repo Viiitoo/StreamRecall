@@ -1,0 +1,5 @@
+method: snag-adapt-input-full
+trigger: sequential-clip-grid
+writer: append-only-fp16-feature-store
+retrieval: snag-official-head-provenance-decode
+raw_cache: none

@@ -1,0 +1,53 @@
+schema_version: 1
+method: snag-adapt-pooled-B
+classification: strict
+formal_frozen: true
+budget_bytes: 1048576
+writer:
+  mode: pooled
+  storage_dtype: float16
+  near_capacity: 64
+  far_capacity: 192
+  max_source_ids: 3
+  aggregation: adjacent-count-weighted-mean
+feature:
+  model: models/clip-vit-base-patch32
+  upstream_id: openai/clip-vit-base-patch32
+  revision: 3d74acf9a28c67741b2f4f2ea7635f0aaf6f0268
+  content_sha256: 16d265fbd9c648b096d830bbeaf83a4c197f071a9b6e4c6685533b5f6028b20b
+  feature_dim: 512
+  feature_fps: 2.0
+  image_batch_size: 1
+  normalized: true
+reader:
+  architecture_name: snag-adapt-physical-time-v1
+  feature_dim: 512
+  query_dim: 512
+  hidden_dim: 256
+  num_heads: 4
+  num_layers: 3
+  fpn_levels: 4
+  dropout: 0.1
+  offset_normalization: token-support-width
+  score_threshold: 0.001
+  nms_iou_threshold: 0.5
+  pre_nms_topk: 2000
+  max_output_spans: 5
+  checkpoint: results/dadf207e0c253a3eee170d25e6846420ff27331d/snag_adapt/p5-b0-reader-1m-reaudit/snag_physical_reader.pth
+  checkpoint_sha256: 9eec5b7c6efc814ba883cc8e2400f6c7377113cf79e9aead3635511e1ff58d3a
+training:
+  seed: 20260914
+  epochs: 20
+  batch_size: 16
+  learning_rate: 0.0003
+  weight_decay: 0.05
+  validation_fraction: 0.2
+  gradient_clip_norm: 1.0
+  arrival_ratios: [0.25, 0.5, 0.75, 1.0]
+  minimum_delay_s: 0.0
+selection:
+  source: streamtimelens_p5_b0_train_video_split_v1
+  development_commit: dadf207e0c253a3eee170d25e6846420ff27331d
+  formal_metric_tuning_forbidden: true
+  effect_gate: results/dadf207e0c253a3eee170d25e6846420ff27331d/snag_adapt/p5-b0-reader-1m-reaudit/effect_gate.json
+  protocol_audit: results/dadf207e0c253a3eee170d25e6846420ff27331d/snag_adapt/p5-b0-reader-1m-reaudit/protocol_audit.json

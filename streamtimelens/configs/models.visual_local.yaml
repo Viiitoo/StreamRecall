@@ -1,0 +1,5 @@
+writer_model: null
+writer_revision: null
+text_embedder: models/all-MiniLM-L6-v2
+text_embedder_revision: 1110a243fdf4706b3f48f1d95db1a4f5529b4d41
+clip_model: models/clip-vit-base-patch32

@@ -1,0 +1,26 @@
+schema_version: 2
+stage: jq01_effect_free_mechanism_gate
+method: JQ-01
+feature_schema: jq_temporal_v2
+architecture: split-gru16-state48-pair64-context-abstain-v1
+center_token_cap: 16
+boundary_token_cap: 8
+temporal_hidden_dim: 16
+temporal_state_dim: 48
+loss_weights:
+  quality: 1.0
+  gain: 1.0
+  left_boundary: 0.5
+  right_boundary: 0.5
+  listwise: 1.0
+  abstention: 0.5
+  relative_regret: 2.0
+candidate_cap: 9
+extent_candidate_cap: 8
+boundary_window_s: 2.0
+budgets_bytes: [1048576, 8388608]
+synthetic_event_widths_s: [2, 8, 16, 32]
+require_snapshot_unchanged: true
+require_baseline_bit_exact: true
+forbid_effect_data: true
+formal_data_allowed: false

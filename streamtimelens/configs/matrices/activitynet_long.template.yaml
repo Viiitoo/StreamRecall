@@ -1,0 +1,16 @@
+# Reference schema only. After V5, select at most two frozen configs with
+# scripts/select_visual_long_configs.py and generate executable matrices with
+# scripts/prepare_formal_visual.py --config-ids.
+methods: [REPLACE_WITH_4_FROZEN_METHOD_CONFIGS]
+budgets: [REPLACE_WITH_FROZEN_BUDGET_CONFIGS]
+protocol_config: configs/protocol.yaml
+model_config: configs/models.yaml
+rhos: [0.25, 0.5, 0.75, 1.0]
+gpu_ids: [0, 1, 2, 3]
+run_id: frozen-v1-activitynet-long
+datasets:
+  - name: activitynet
+    videos: [{video_id: REPLACE_ME, path: /replace/activitynet.mp4}]
+    queries: [{query_id: REPLACE_ME, video_id: REPLACE_ME, query: replace me}]
+ingest_command: [python3, streamtimelens/scripts/build_snapshots.py, --video, "{video_path}", --method, "{method_name}", --budget, "{budget_bytes}", --arrival-ratios, "{rhos}", --clip-model, "{clip_model}", --output, "{job_dir}/snapshots"]
+query_command: [python3, streamtimelens/scripts/answer_snapshots.py, --snapshot, "{snapshot}", --query-id, "{query_id}", --query, "{query}", --retrieval, frame, --resolved-config, "{resolved_config}", --clip-model, "{clip_model}", --output, "{job_dir}/predictions/{query_id}.rho_{rho}.json"]

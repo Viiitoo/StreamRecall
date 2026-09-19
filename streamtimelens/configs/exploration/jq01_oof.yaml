@@ -1,0 +1,38 @@
+schema_version: 2
+stage: jq01_fixed_development_group_oof
+method: JQ-01
+data_role: development/consumed
+repeated_revisions_allowed: true
+require_complete_fixed_benchmark: true
+require_append_only_registry: true
+conditions: [frozen_visual_v2, JQ-01]
+budgets_bytes: [1048576, 8388608]
+primary_budget_bytes: 8388608
+outer_folds: 4
+outer_unit: group_id
+seed: 20260911
+device: cpu
+deterministic_algorithms: true
+data_sort_key: observation_id
+feature_schema: jq_feature_v1
+candidate_cap: 9
+x1_generator_source_revision: 8f8c3f702146ab2f5a4c8a41877f5330a2973f90
+x1_safety_selector_used: false
+quality_bins: [[0.0, 0.3], [0.3, 0.7], [0.7, 1.0]]
+quality_loss: SmoothL1
+listwise_loss: ListNet
+target_temperature: 0.1
+logit_temperature: 1.0
+quality_weight: 1.0
+ranking_weight: 1.0
+architecture: layernorm-linear64-gelu-linear32-gelu-linear1
+optimizer: AdamW
+learning_rate: 0.001
+weight_decay: 0.0001
+max_epochs: 100
+patience: 10
+bootstrap_resamples: 2000
+bootstrap_seed: 20260911
+adequate_cell_minimum_videos: 12
+formal_data_allowed: false
+original_video_read_allowed: false

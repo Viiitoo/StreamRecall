@@ -1,0 +1,20 @@
+method: uniform
+algorithm_version: p0-uniform-v1
+budget: 2048
+seed: 42
+model_path: models/TimeLens-7B
+attn_implementation: flash_attention_2
+device: auto
+max_new_tokens: 512
+input:
+  # A conservative pre-processing allocation; actual token count is read from
+  # image_grid_thw and must still satisfy budget.
+  frame_token_cap: 128
+  processor_do_resize: true
+  processor_use_fast: true
+  metadata_include_vfr_timestamps: true
+  decoder: pyav
+  timestamp_mode: normalized_frame_pts
+  visual_token_counting: image_grid_thw_div_spatial_merge_area
+  min_pixels: 12544
+  max_pixels: 100352

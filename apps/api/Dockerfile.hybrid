@@ -1,0 +1,14 @@
+FROM vlm-timelens:0.1
+
+COPY requirements.txt /tmp/streamrecall-api-requirements.txt
+RUN python3 -m pip install --no-cache-dir \
+    -i https://repo.huaweicloud.com/repository/pypi/simple \
+    -r /tmp/streamrecall-api-requirements.txt
+
+WORKDIR /workspace/apps/api
+ENV PYTHONPATH=/workspace/apps/api:/workspace/streamtimelens/src:/workspace/src:/workspace/third_party/TimeLens
+ENV STREAMRECALL_BACKEND=hybrid-v3
+ENV STREAMRECALL_CLIP_DEVICE=cuda:0
+ENV STREAMRECALL_DEVICE_MAP=cuda:0
+
+CMD ["python3", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

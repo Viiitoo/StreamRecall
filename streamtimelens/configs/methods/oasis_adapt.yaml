@@ -1,0 +1,5 @@
+method: oasis-adapt
+trigger: periodic-fixed-segment
+writer: timelens_free_text_v1
+retrieval: hybrid_hierarchy_mmr_sparse_local
+raw_cache: shared_budget_boundary

@@ -1,0 +1,56 @@
+{
+  "project": "timelens-baseline-reproduction",
+  "created_at": "2026-08-25T16:53:14+08:00",
+  "environments": [
+    {
+      "name": "p0-feasibility",
+      "container": "vlm-timelens-bootstrap",
+      "base_image": "docker.1ms.run/pytorch/pytorch:2.8.0-cuda12.8-cudnn9-devel",
+      "python": "3.11.13",
+      "torch": "2.8.0+cu128",
+      "transformers": "4.57.1",
+      "flash_attn": "2.7.4.post1",
+      "validated_at": "2026-08-25T21:52:00+08:00",
+      "validation_log": "logs/p0_environment.txt",
+      "note": "Feasibility environment using an existing local image. The exact official torch==2.6.0/cu124 environment remains to be frozen before reporting final baseline metrics."
+    }
+  ],
+  "assets": [
+    {
+      "name": "TimeLens source",
+      "source": "https://github.com/TencentARC/TimeLens.git",
+      "revision": "5d2110fb3faf74f4b0fc5957cd7ab73bea4763dc",
+      "local_path": "third_party/TimeLens",
+      "purpose": "official inference and TimeLens-Bench evaluation",
+      "license_file": "third_party/TimeLens/LICENSE"
+    },
+    {
+      "name": "TimeLens-7B",
+      "source": "https://huggingface.co/TencentARC/TimeLens-7B",
+      "revision": "1740e2694669a4d03549454ed4af1cd740769f4f",
+      "local_path": "models/TimeLens-7B",
+      "sha256": null,
+      "purpose": "P1-P2 frozen baseline checkpoint",
+      "status": "downloaded"
+    },
+    {
+      "name": "TimeLens-Bench",
+      "source": "https://huggingface.co/datasets/TencentARC/TimeLens-Bench",
+      "revision": "5fc78c4b401b2dadf7a3a4355d51d566ff28e0c9",
+      "local_path": "third_party/TimeLens/data/TimeLens-Bench",
+      "sha256": null,
+      "purpose": "official evaluation annotations and videos; Charades-TimeLens subset downloaded",
+      "status": "charades_downloaded"
+    },
+    {
+      "name": "P1 Charades smoke result",
+      "source": "results/p1_smoke_sample_000.json",
+      "sample": "3MSZA / A woman is repeatedly flipping the switch on the wall.",
+      "checkpoint_revision": "1740e2694669a4d03549454ed4af1cd740769f4f",
+      "prediction": [23.4, 30.5],
+      "ground_truth": [25, 30],
+      "temporal_iou": 0.7042,
+      "status": "passed"
+    }
+  ]
+}

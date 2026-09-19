@@ -1,0 +1,59 @@
+# V1 20-video protocol smoke on frozen independent dev; no formal test assets.
+methods:
+  - streamtimelens/configs/methods/uniform_raw.yaml
+  - streamtimelens/configs/methods/semantic_reservoir.yaml
+budgets:
+  - streamtimelens/configs/budgets/dev_256k_w1.yaml
+  - streamtimelens/configs/budgets/dev_1m_w1.yaml
+rhos: [0.25, 0.5, 0.75, 1.0]
+gpu_ids: [0, 1, 2, 3]
+run_id: visual-protocol-smoke-v1
+protocol_config: streamtimelens/configs/protocol.yaml
+model_config: streamtimelens/configs/models.visual_local.yaml
+query_mode: per_video_grid
+query_grid:
+  - {top_k: 8, expand_neighbors: 1, merge_gap_s: 4, coarse_margin_s: 10}
+datasets:
+  - name: charades_sta_derived_dev_v1_smoke20
+    video_manifest: artifacts/dev/dev_videos.jsonl
+    query_manifest: artifacts/dev/dev_queries.jsonl
+    video_root: third_party/TimeLens/data/StreamTimeLens-Dev/charades/videos
+    video_limit: 20
+ingest_command:
+  - python3
+  - streamtimelens/scripts/build_snapshots.py
+  - --video
+  - "{video_path}"
+  - --method
+  - "{method_name}"
+  - --budget
+  - "{budget_bytes}"
+  - --clip-model
+  - "{clip_model}"
+  - --clip-revision
+  - 3d74acf9a28c67741b2f4f2ea7635f0aaf6f0268
+  - --clip-sha256
+  - 16d265fbd9c648b096d830bbeaf83a4c197f071a9b6e4c6685533b5f6028b20b
+  - --arrival-ratios
+  - "{rhos}"
+  - --output
+  - "{job_dir}/snapshots"
+query_command:
+  - python3
+  - streamtimelens/scripts/answer_visual_grid.py
+  - --snapshot-root
+  - "{snapshot_root}"
+  - --queries
+  - "{queries}"
+  - --query-grid
+  - "{query_grid}"
+  - --rhos
+  - "{rhos}"
+  - --clip-model
+  - "{clip_model}"
+  - --clip-revision
+  - 3d74acf9a28c67741b2f4f2ea7635f0aaf6f0268
+  - --clip-sha256
+  - 16d265fbd9c648b096d830bbeaf83a4c197f071a9b6e4c6685533b5f6028b20b
+  - --output
+  - "{predictions_dir}"

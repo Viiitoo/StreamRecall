@@ -1,0 +1,5 @@
+method: onvtg-official-query-known
+trigger: query-conditioned-online-memory
+writer: official-onvtg-checkpoint
+retrieval: official-onvtg-head
+raw_cache: official-query-conditioned-features

@@ -1,0 +1,17 @@
+schema_version: 2
+stage: jq01_fixed_development_and_d_lock
+method: JQ-01
+minimum_d_lock_videos_per_source_duration_cell: 8
+development_outer_folds: 4
+identity_fields: [video_id, group_id, query_id, content_sha256]
+preserve_development_field: outer_fold
+cell_fields: [source, duration_bucket]
+development_sources: [C1, F1, X1, T1, E2]
+development_role: development/consumed
+d_lock_role: d_lock
+exclude_from_development: [formal]
+selection_seed: 20260911
+development_annotation_read_allowed: true
+d_lock_annotation_read_allowed: false
+development_repeated_runs_allowed: true
+formal_data_allowed: false

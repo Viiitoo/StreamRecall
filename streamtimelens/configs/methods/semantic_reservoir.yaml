@@ -1,0 +1,5 @@
+method: semantic_reservoir
+trigger: fixed_clip_0_5fps
+writer: none
+retrieval: clip_frame_candidates_then_sparse_local
+raw_cache: temporal_anchors_plus_semantic_novelty

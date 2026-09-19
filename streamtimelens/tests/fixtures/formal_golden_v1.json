@@ -1,0 +1,138 @@
+{
+  "case": "one_video_four_rho_three_queries",
+  "offline_timelens_entrypoint": "scripts/run_offline_timelens.py",
+  "predictions": [
+    {
+      "attempts": [{"frame_refs": ["000000001.jpg"], "parse_status": "out_of_bounds", "parsed_span": null, "status": "parse_failure"}],
+      "candidates": ["candidate-a3793734e7fd829b"],
+      "query_id": "golden-door",
+      "raw_answers": ["The event occurs from 2.2 - 3.8 seconds."],
+      "retrieved_cards": ["wait"],
+      "rho_q": 0.25,
+      "span": [0.5, 1.5],
+      "status": "fallback"
+    },
+    {
+      "attempts": [{"frame_refs": ["000000001.jpg"], "parse_status": "out_of_bounds", "parsed_span": null, "status": "parse_failure"}],
+      "candidates": ["candidate-a3793734e7fd829b"],
+      "query_id": "golden-walk",
+      "raw_answers": ["The event occurs from 4.7 - 5.8 seconds."],
+      "retrieved_cards": ["wait"],
+      "rho_q": 0.25,
+      "span": [0.5, 1.5],
+      "status": "fallback"
+    },
+    {
+      "attempts": [{"frame_refs": ["000000001.jpg"], "parse_status": "out_of_bounds", "parsed_span": null, "status": "parse_failure"}],
+      "candidates": ["candidate-a3793734e7fd829b"],
+      "query_id": "golden-cup",
+      "raw_answers": ["The event occurs from 7.0 - 8.8 seconds."],
+      "retrieved_cards": ["wait"],
+      "rho_q": 0.25,
+      "span": [0.5, 1.5],
+      "status": "fallback"
+    },
+    {
+      "attempts": [{"frame_refs": ["000000001.jpg", "000000002.jpg", "000000004.jpg"], "parse_status": "ok", "parsed_span": [2.2, 3.8], "status": "ok"}],
+      "candidates": ["candidate-10817eb74c967171"],
+      "query_id": "golden-door",
+      "raw_answers": ["The event occurs from 2.2 - 3.8 seconds."],
+      "retrieved_cards": ["door", "wait"],
+      "rho_q": 0.5,
+      "span": [2.2, 3.8],
+      "status": "ok"
+    },
+    {
+      "attempts": [{"frame_refs": ["000000001.jpg", "000000002.jpg", "000000004.jpg"], "parse_status": "out_of_bounds", "parsed_span": null, "status": "parse_failure"}],
+      "candidates": ["candidate-10817eb74c967171"],
+      "query_id": "golden-walk",
+      "raw_answers": ["The event occurs from 4.7 - 5.8 seconds."],
+      "retrieved_cards": ["wait", "door"],
+      "rho_q": 0.5,
+      "span": [0.5, 4.0],
+      "status": "fallback"
+    },
+    {
+      "attempts": [{"frame_refs": ["000000001.jpg", "000000002.jpg", "000000004.jpg"], "parse_status": "out_of_bounds", "parsed_span": null, "status": "parse_failure"}],
+      "candidates": ["candidate-10817eb74c967171"],
+      "query_id": "golden-cup",
+      "raw_answers": ["The event occurs from 7.0 - 8.8 seconds."],
+      "retrieved_cards": ["wait", "door"],
+      "rho_q": 0.5,
+      "span": [0.5, 4.0],
+      "status": "fallback"
+    },
+    {
+      "attempts": [{"frame_refs": ["000000001.jpg", "000000002.jpg", "000000004.jpg", "000000006.jpg"], "parse_status": "ok", "parsed_span": [2.2, 3.8], "status": "ok"}],
+      "candidates": ["candidate-dff913dff71856f4", "candidate-10817eb74c967171", "candidate-9e5f66fc014329dc"],
+      "query_id": "golden-door",
+      "raw_answers": ["The event occurs from 2.2 - 3.8 seconds."],
+      "retrieved_cards": ["door", "wait", "walk"],
+      "rho_q": 0.75,
+      "span": [2.2, 3.8],
+      "status": "ok"
+    },
+    {
+      "attempts": [{"frame_refs": ["000000002.jpg", "000000004.jpg", "000000005.jpg", "000000006.jpg"], "parse_status": "ok", "parsed_span": [4.7, 5.8], "status": "ok"}],
+      "candidates": ["candidate-9e5f66fc014329dc", "candidate-10817eb74c967171", "candidate-dff913dff71856f4"],
+      "query_id": "golden-walk",
+      "raw_answers": ["The event occurs from 4.7 - 5.8 seconds."],
+      "retrieved_cards": ["walk", "wait", "door"],
+      "rho_q": 0.75,
+      "span": [4.7, 5.8],
+      "status": "ok"
+    },
+    {
+      "attempts": [{"frame_refs": ["000000001.jpg", "000000002.jpg", "000000004.jpg"], "parse_status": "out_of_bounds", "parsed_span": null, "status": "parse_failure"}],
+      "candidates": ["candidate-10817eb74c967171", "candidate-dff913dff71856f4", "candidate-9e5f66fc014329dc"],
+      "query_id": "golden-cup",
+      "raw_answers": ["The event occurs from 7.0 - 8.8 seconds."],
+      "retrieved_cards": ["wait", "door", "walk"],
+      "rho_q": 0.75,
+      "span": [0.5, 4.0],
+      "status": "fallback"
+    },
+    {
+      "attempts": [{"frame_refs": ["000000001.jpg", "000000002.jpg", "000000004.jpg", "000000006.jpg"], "parse_status": "ok", "parsed_span": [2.2, 3.8], "status": "ok"}],
+      "candidates": ["candidate-dff913dff71856f4", "candidate-10817eb74c967171", "candidate-6605ac966fff323e", "candidate-cb0980017be68f24"],
+      "query_id": "golden-door",
+      "raw_answers": ["The event occurs from 2.2 - 3.8 seconds."],
+      "retrieved_cards": ["door", "wait", "walk", "cup"],
+      "rho_q": 1.0,
+      "span": [2.2, 3.8],
+      "status": "ok"
+    },
+    {
+      "attempts": [{"frame_refs": ["000000002.jpg", "000000004.jpg", "000000005.jpg", "000000009.jpg"], "parse_status": "ok", "parsed_span": [4.7, 5.8], "status": "ok"}],
+      "candidates": ["candidate-6605ac966fff323e", "candidate-10817eb74c967171", "candidate-dff913dff71856f4", "candidate-cb0980017be68f24"],
+      "query_id": "golden-walk",
+      "raw_answers": ["The event occurs from 4.7 - 5.8 seconds."],
+      "retrieved_cards": ["walk", "wait", "door", "cup"],
+      "rho_q": 1.0,
+      "span": [4.7, 5.8],
+      "status": "ok"
+    },
+    {
+      "attempts": [{"frame_refs": ["000000005.jpg", "000000006.jpg", "000000007.jpg", "000000009.jpg"], "parse_status": "ok", "parsed_span": [7.0, 8.8], "status": "ok"}],
+      "candidates": ["candidate-cb0980017be68f24", "candidate-10817eb74c967171", "candidate-dff913dff71856f4", "candidate-6605ac966fff323e"],
+      "query_id": "golden-cup",
+      "raw_answers": ["The event occurs from 7.0 - 8.8 seconds."],
+      "retrieved_cards": ["cup", "wait", "door", "walk"],
+      "rho_q": 1.0,
+      "span": [7.0, 8.8],
+      "status": "ok"
+    }
+  ],
+  "resource_shape": {
+    "query_embedding_fields": ["bytes_in", "bytes_out", "component", "cpu_s", "cuda_s", "status", "wall_s"],
+    "refiner_resource_fields": [["bytes_in", "bytes_out", "component", "cpu_s", "cuda_s", "status", "wall_s"]],
+    "resource_fields": ["query_embedding", "refiner", "refiner_model_calls"]
+  },
+  "schema_version": 1,
+  "snapshot_hashes": {
+    "rho_0.25": "6d68ddfddb581433c0ce82439cfe37b504ba94397b3732167e911d92d07a78ba",
+    "rho_0.50": "a44c820942184d1760ced3c872d065e65aed3318c97f3da6d74cae1a20e5cc0d",
+    "rho_0.75": "47cc063fbd6308002251b3bd2855753dfc50238ee21e834bdb2feb6267fe36da",
+    "rho_1.00": "90955ab97a2b9ef4fda1a278c4ab344e10064730194dd8850c7a3d967bdd8cc0"
+  }
+}

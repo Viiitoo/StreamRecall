@@ -1,0 +1,43 @@
+schema_version: 1
+method: clip_timelens_hybrid_v3
+
+snapshot_source:
+  frozen_config_id: uniform_raw_v2-1048576-510745273ec3
+  frozen_config_sha256: cd682da421be2e4269367fb8bc7fd33923f54089c877d0f2da09db7a1840be0c
+  snapshot_config_sha256: 6b5f256ec8e34514d6321e1b17220e4e061de7ac7653878ac62e19877ddf8a47
+  reuse_frozen_snapshot: true
+
+retrieval:
+  clip_model: models/clip-vit-base-patch32
+  clip_revision: 3d74acf9a28c67741b2f4f2ea7635f0aaf6f0268
+  clip_content_sha256: 16d265fbd9c648b096d830bbeaf83a4c197f071a9b6e4c6685533b5f6028b20b
+  top_k: 32
+  merge_gap_s: 2.0
+  expand_neighbors: 1
+  candidate_margin_s: 2.0
+  coarse_margin_s: 8.0
+  max_candidate_clusters: 6
+  temporal_nms_iou: 0.5
+  min_cluster_separation_s: 2.0
+
+brain:
+  model: models/Qwen2.5-VL-7B-Instruct
+  model_registry_key: qwen_writer
+  model_revision: cc594898137f460bfe9f0759e9844b3ce807cfb5
+  model_content_sha256: ca6f8b0c6f56cd465df77cc9732dcb7a5503bb6eb5cfd590211499d13e8d461b
+  model_service_hashes:
+    model_sha256: 9b66fcfbe006f34dc5ff7fbe3a301382e08b9af233f39b6396e886f6a5006d6d
+    config_sha256: f426d50a1e74b501fa7390b1bedd043e7e66b8043567fc296c38fc2f75ef201e
+    tokenizer_sha256: 67adb72c3263b2c1e1c6c25de9df83d972cd81a1e4c700fe402900932c22faf1
+  readout: timelens_multicandidate_v1
+  prompt_version: sparse_multicandidate_v1
+  max_unique_frames: 16
+  max_new_tokens: 64
+  do_sample: false
+  calls_per_query: 1
+  total_visual_tokens: 4096
+
+fallback:
+  invalid_output: clip_coarse
+  exception: clip_coarse
+  accept_model_not_found: false

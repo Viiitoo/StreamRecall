@@ -1,0 +1,86 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "streamtimelens"
+version = "0.1.0"
+description = "Auditable delayed-query streaming video temporal grounding"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+  "PyYAML>=5.3",
+  "msgpack>=1.0",
+  "numpy>=1.20",
+  "Pillow>=7",
+  "opencv-python-headless>=4.5",
+  "pydantic>=1.10,<2",
+  "transformers>=4.37,<5",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "ruff>=0.1"]
+jq01 = ["torch>=2.0"]
+lf01 = ["torch>=2.0"]
+hybrid-v3 = [
+  "accelerate==1.6.0",
+  "qwen-vl-utils[decord]==0.0.14",
+  "torch>=2.6",
+  "torchvision>=0.21",
+  "transformers==4.57.1",
+]
+
+[project.scripts]
+streamtimelens-build-plan = "streamtimelens.cli:build_arrival_plan_main"
+streamtimelens-build-snapshots = "streamtimelens.cli:build_snapshots_main"
+streamtimelens-answer = "streamtimelens.cli:answer_snapshots_main"
+streamtimelens-answer-hybrid-v3 = "streamtimelens.cli:answer_hybrid_v3_main"
+streamtimelens-run-hybrid-v3 = "streamtimelens.cli:run_hybrid_v3_matrix_main"
+streamtimelens-evaluate-hybrid-v3 = "streamtimelens.cli:evaluate_hybrid_v3_main"
+streamtimelens-answer-visual-grid = "streamtimelens.cli:answer_visual_grid_main"
+streamtimelens-oracle = "streamtimelens.cli:run_oracle_refiner_main"
+streamtimelens-writer-feasibility = "streamtimelens.cli:run_writer_feasibility_main"
+streamtimelens-generate-writer-feasibility = "streamtimelens.cli:generate_writer_feasibility_main"
+streamtimelens-offline = "streamtimelens.cli:run_offline_timelens_main"
+streamtimelens-evaluate = "streamtimelens.cli:evaluate_main"
+streamtimelens-run-matrix = "streamtimelens.cli:run_matrix_main"
+streamtimelens-engineering-smoke = "streamtimelens.cli:run_engineering_smoke_main"
+streamtimelens-audit-visual = "streamtimelens.cli:audit_visual_cache_main"
+streamtimelens-select-visual = "streamtimelens.cli:select_visual_dev_main"
+streamtimelens-summarize-visual = "streamtimelens.cli:summarize_visual_dev_main"
+streamtimelens-prepare-formal-visual = "streamtimelens.cli:prepare_formal_visual_main"
+streamtimelens-summarize-formal-visual = "streamtimelens.cli:summarize_visual_formal_main"
+streamtimelens-select-visual-long = "streamtimelens.cli:select_visual_long_configs_main"
+streamtimelens-summarize-visual-long = "streamtimelens.cli:summarize_visual_long_main"
+streamtimelens-summarize-offline-formal = "streamtimelens.cli:summarize_offline_formal_main"
+streamtimelens-visual-refiner-gate = "streamtimelens.cli:run_visual_refiner_gate_main"
+streamtimelens-freeze-dev = "streamtimelens.cli:freeze_dev_config_main"
+streamtimelens-freeze-visual = "streamtimelens.cli:freeze_visual_config_main"
+streamtimelens-freeze-visual-selection = "streamtimelens.cli:freeze_visual_selection_main"
+streamtimelens-formal-report = "streamtimelens.cli:render_formal_report_main"
+streamtimelens-golden-regression = "streamtimelens.cli:run_golden_regression_main"
+streamtimelens-long-video = "streamtimelens.cli:prepare_long_video_extension_main"
+streamtimelens-snag-g0-parity = "streamtimelens.cli:run_snag_g0_parity_main"
+streamtimelens-build-snag-snapshots = "streamtimelens.cli:build_snag_snapshots_main"
+streamtimelens-prepare-snag-development = "streamtimelens.cli:prepare_snag_development_main"
+streamtimelens-train-evaluate-snag = "streamtimelens.cli:train_evaluate_snag_pooled_main"
+streamtimelens-audit-snag-formal-start = "streamtimelens.cli:audit_snag_formal_start_main"
+streamtimelens-answer-snag-snapshots = "streamtimelens.cli:answer_snag_snapshots_main"
+streamtimelens-prepare-snag-formal = "streamtimelens.cli:prepare_snag_formal_main"
+streamtimelens-evaluate-snag-formal = "streamtimelens.cli:evaluate_snag_formal_main"
+streamtimelens-audit-snag-g2 = "streamtimelens.cli:audit_snag_g2_diagnostics_main"
+streamtimelens-audit-snag-g1 = "streamtimelens.cli:audit_snag_g1_upper_bound_main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+target-version = "py38"
+extend-exclude = ["../baseline", "../ref"]
+
+[tool.ruff.per-file-ignores]
+"scripts/*.py" = ["E402"]  # Standalone scripts prepend the editable source roots.

@@ -1,0 +1,5 @@
+method: vst-summary-fifo
+trigger: periodic
+writer: timelens_free_text_v1
+retrieval: hybrid_mmr_sparse_local
+raw_cache: shared_budget_boundary

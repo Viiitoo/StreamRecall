@@ -1,0 +1,5 @@
+method: uniform_raw
+trigger: fixed_clip_0_5fps
+writer: none
+retrieval: clip_frame_candidates_then_sparse_local
+raw_cache: deterministic_temporal_slots

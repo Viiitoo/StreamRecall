@@ -1,0 +1,48 @@
+schema_version: 1
+method: clip_timelens_hybrid_v3
+
+snapshot_source:
+  frozen_config_id: uniform_raw_v2-1048576-510745273ec3
+  frozen_config_sha256: cd682da421be2e4269367fb8bc7fd33923f54089c877d0f2da09db7a1840be0c
+  snapshot_config_sha256: 6b5f256ec8e34514d6321e1b17220e4e061de7ac7653878ac62e19877ddf8a47
+  reuse_frozen_snapshot: true
+
+retrieval:
+  clip_model: models/clip-vit-base-patch32
+  clip_revision: 3d74acf9a28c67741b2f4f2ea7635f0aaf6f0268
+  clip_content_sha256: 16d265fbd9c648b096d830bbeaf83a4c197f071a9b6e4c6685533b5f6028b20b
+  top_k: 6
+  merge_gap_s: 2.0
+  merge_gap_tolerance_s: 0.5
+  expand_neighbors: 1
+  candidate_margin_s: 2.0
+  coarse_margin_s: 8.0
+  max_candidate_clusters: 6
+  temporal_nms_iou: 0.5
+  min_cluster_separation_s: 2.0
+
+brain:
+  model: models/TimeLens-7B
+  model_registry_key: timelens
+  model_revision: 1740e2694669a4d03549454ed4af1cd740769f4f
+  model_content_sha256: c34c3e8ebfc69709c4cdde683d32bc5036a61f237c416c47f3bad6eff59765e5
+  model_service_hashes:
+    model_sha256: 0b57de7dbef1b6739743ea66ae51a8f5c1ce3ddb400a53a82eabb1553f212092
+    config_sha256: 6b297fe35840807bf600fe998b0313a22385545fa9e11a1beec3b69f03a77e3a
+    tokenizer_sha256: 0f81f98a1b272d3036803823f2434bcbdf563b668765483acbdc7e6e7414626a
+  readout: timelens_multicandidate_adaptive_v3
+  prompt_version: sparse_multicandidate_adaptive_v3
+  frame_allocator: boundary_anchored_v2
+  candidate_label_order: score_v1
+  sparse_keep_max_frames: 7
+  min_refined_candidate_ratio: 0.8
+  max_unique_frames: 16
+  max_new_tokens: 64
+  do_sample: false
+  calls_per_query: 1
+  total_visual_tokens: 4096
+
+fallback:
+  invalid_output: clip_coarse
+  exception: clip_coarse
+  accept_model_not_found: false

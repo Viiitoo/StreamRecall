@@ -1,0 +1,5 @@
+method: streamtimelens-p0
+trigger: joint
+writer: deterministic_unknown_event
+retrieval: lexical_mmr
+raw_cache: boundary_and_ring
