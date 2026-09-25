@@ -119,8 +119,11 @@ make setup
 make demo
 ```
 
-Open [http://127.0.0.1:3000](http://127.0.0.1:3000). Interactive API
-documentation is available at [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
+After both services report ready, open the local UI at `http://127.0.0.1:3000`.
+The interactive API documentation is served locally at
+`http://127.0.0.1:8000/docs`. These are local development addresses—not a
+hosted demo. If StreamRecall is running on a remote machine, use SSH port
+forwarding or your own deployment URL.
 
 <details>
 <summary><b>Run the real CLIP + TimeLens backend</b></summary>

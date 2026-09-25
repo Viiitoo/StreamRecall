@@ -23,8 +23,10 @@ make setup
 make demo
 ```
 
-Open <http://127.0.0.1:3000>. API documentation is available at
-<http://127.0.0.1:8000/docs>.
+After both services report ready, open the local UI at `http://127.0.0.1:3000`.
+The API documentation is served locally at `http://127.0.0.1:8000/docs`.
+These addresses are only reachable from the machine running StreamRecall;
+remote setups require port forwarding or a deployed URL.
 
 The browser uses same-origin `/api` and `/healthz` URLs. Next.js proxies those
 requests to `http://127.0.0.1:8000`, so the UI also works when Codex, SSH or a
