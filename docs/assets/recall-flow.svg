@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="462" viewBox="0 0 880 462" role="img" aria-labelledby="title desc">
+  <title id="title">How StreamRecall answers a delayed query</title>
+  <desc id="desc">A single pass over the video feeds a byte-bounded writer. Its immutable snapshot and a later query meet at CLIP retrieval. A bounded set of evidence frames goes to optional TimeLens refinement, producing an interval with citations and an audit.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1l6 3-6 3" fill="none" stroke="#497365" stroke-width="1.5"/></marker>
+    <style>
+      .heading{font:600 28px system-ui,sans-serif;fill:#182e29}
+      .phase{font:600 14px ui-monospace,monospace;letter-spacing:1.7px;fill:#4b695e}
+      .label{font:600 22px system-ui,sans-serif;fill:#18342c}
+      .detail{font:16px system-ui,sans-serif;fill:#40574f}
+      .line{stroke:#497365;stroke-width:2;fill:none;marker-end:url(#arrow)}
+      .icon{stroke:#537867;fill:none;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+  </defs>
+  <rect width="880" height="462" rx="20" fill="#f5f4ed"/>
+  <path d="M437 36v390" stroke="#ccd4ca" stroke-dasharray="3 7"/>
+  <g transform="translate(32 0)">
+    <text class="phase" y="45">INGEST</text><text class="heading" y="81">During playback</text>
+    <rect y="102" width="344" height="82" rx="12" fill="#fff" stroke="#cbd3c8"/>
+    <g class="icon" transform="translate(19 128)"><rect width="38" height="27" rx="4"/><path d="m15 7 11 6-11 7z"/></g>
+    <text class="label" x="74" y="139">Video stream</text><text class="detail" x="74" y="163">Single-pass observation</text>
+    <path class="line" d="M35 185v24"/>
+    <rect y="215" width="344" height="82" rx="12" fill="#fff" stroke="#cbd3c8"/>
+    <g class="icon" transform="translate(19 240)"><path d="M1 1h36L24 17v13l-10-4v-9z"/></g>
+    <text class="label" x="74" y="251">Memory writer</text><text class="detail" x="74" y="275">Write under a byte limit</text>
+    <path class="line" d="M35 298v24"/>
+    <rect y="328" width="344" height="91" rx="12" fill="#183c32"/>
+    <g fill="none" stroke="#a4d8b4" stroke-width="2.2" transform="translate(19 354)"><path d="m1 10 18-9 18 9-18 9zM1 18l18 9 18-9M1 26l18 9 18-9"/></g>
+    <text x="74" y="367" class="label" style="fill:white">Immutable snapshot</text><text x="74" y="393" class="detail" style="fill:#cee5d6">Time-stamped visual evidence</text>
+  </g>
+  <path class="line" d="M376 372h22q12 0 12-12v-96q0-10 10-10h53"/>
+  <g transform="translate(478 0)">
+    <text class="phase" y="45">RECALL</text><text class="heading" y="81">After the query arrives</text>
+    <rect y="102" width="370" height="82" rx="12" fill="#fff" stroke="#cbd3c8"/>
+    <g class="icon" transform="translate(18 128)"><path d="M3 0h30q4 0 4 4v16q0 4-4 4H15L5 31v-7H3q-3 0-3-4V4q0-4 3-4z"/><path d="M8 9h20M8 15h13"/></g>
+    <text class="label" x="73" y="139">Question</text><text class="detail" x="73" y="163">Describe the event to locate</text>
+    <path class="line" d="M35 185v24"/>
+    <rect y="215" width="370" height="82" rx="12" fill="#fff" stroke="#cbd3c8"/>
+    <g class="icon" transform="translate(19 241)"><circle cx="14" cy="12" r="12"/><path d="m23 21 11 11"/></g>
+    <text class="label" x="73" y="249">Retrieve and refine</text><text class="detail" x="73" y="273">CLIP search · optional TimeLens</text>
+    <path class="line" d="M35 298v24"/>
+    <rect y="328" width="370" height="91" rx="12" fill="#f6dfc7" stroke="#dfc5a7"/>
+    <g fill="none" stroke="#985223" stroke-width="2.5" transform="translate(18 360)"><path d="M0 12h40M7 3v18M32 3v18"/><path d="M7 12h25" stroke-width="7"/></g>
+    <text class="label" x="73" y="367">Grounded answer</text><text class="detail" x="73" y="393">Time span, citations and audit</text>
+  </g>
+</svg>

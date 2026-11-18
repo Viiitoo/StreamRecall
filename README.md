@@ -1,71 +1,30 @@
-<div align="center">
-
 # StreamRecall
 
-### Ask the past without replaying it.
+A streaming video agent that watches once, stores a byte-bounded visual memory, and answers later questions with a time interval and cited frames.
 
-An auditable, memory-bounded agent for post-hoc event retrieval in streaming video.
+[Watch the demo](#demo) · [How it works](#method) · [Run locally](#quick-start) · [Evaluation](#evaluation) · [Citation](#citation)
 
-[![CI](https://github.com/Viiitoo/StreamRecall/actions/workflows/ci.yml/badge.svg)](https://github.com/Viiitoo/StreamRecall/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-b8ef72.svg)](LICENSE)
-[![Python](https://img.shields.io/badge/Python-3.8%2B-68c8bd.svg)](streamtimelens/pyproject.toml)
-[![Next.js](https://img.shields.io/badge/Next.js-16-111a18.svg)](apps/web/package.json)
-[![Task](https://img.shields.io/badge/Task-Streaming%20VTG-d8b95e.svg)](#-protocol)
+## Demo
 
-[**Demo**](#-product-demo) · [**Method**](#-method) · [**Quick Start**](#-quick-start) · [**Evaluation**](#-evaluation) · [**Citation**](#-citation)
+[![Play the 24-second StreamRecall demo. The clip plays, a question arrives, and the model returns a time interval with three cited frames.](docs/assets/streamrecall-demo.gif)][play]
 
-</div>
+**[Play the full-size video (MP4, 24 s)][play]** · [Download MP4](https://github.com/Viiitoo/StreamRecall/raw/refs/heads/main/docs/assets/streamrecall-demo.mp4) · [Recorded API output](docs/assets/meadow-run.json)
 
-![StreamRecall visual abstract](docs/assets/streamrecall-teaser.png)
+The demo follows a single Hybrid V3 run on a 24-second excerpt of *Big Buck Bunny*. Clip times start at zero. The recording plays the input at 2× speed.
 
-<p align="center">
-  <em>Watch once · remember under a hard budget · answer later with grounded evidence</em>
-</p>
+| In the demo | What happens |
+| --- | --- |
+| 0:01.5–0:13.5 | The clip plays. The writer retains 12 frames in a 249,637-byte snapshot. |
+| 0:13.5–0:17 | After playback ends, the query arrives. “When does the rabbit lean down to smell the white flowers?” |
+| 0:17–0:24 | The model returns **8–24 s** and cites frames at **10, 16 and 22 s**. The predicted interval extends past the flower scene. |
 
-## TL;DR
+The footage is a silent excerpt with playback and recall overlays. *Big Buck Bunny* © 2008 Blender Foundation / www.bigbuckbunny.org. [Film credits](https://peach.blender.org/about/) · [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
 
-Most video assistants see the question first—or replay the full video afterward.
-StreamRecall studies a stricter setting: the system watches a stream once, before
-future questions are known, and compresses its past into an immutable visual
-snapshot. When a query arrives, the agent can inspect only that bounded snapshot.
-It returns a temporal span, cited evidence frames, confidence, and a protocol audit.
+[play]: https://cdn.jsdelivr.net/gh/Viiitoo/StreamRecall@main/docs/assets/streamrecall-demo.mp4
 
-> **The central question:** what should a video agent remember when it does not
-> yet know what it will be asked?
+## Method
 
-## ✨ Highlights
-
-<table>
-<tr>
-<td width="25%" align="center"><b>Query-blind ingest</b><br/><sub>The writer never sees future questions or ground truth.</sub></td>
-<td width="25%" align="center"><b>Hard memory budget</b><br/><sub>Every query-visible byte is serialized, counted, and audited.</sub></td>
-<td width="25%" align="center"><b>Snapshot-only recall</b><br/><sub>The query worker cannot reopen the video or access future frames.</sub></td>
-<td width="25%" align="center"><b>Grounded answers</b><br/><sub>Every answer carries a span, evidence, confidence, and failure mode.</sub></td>
-</tr>
-</table>
-
-## 🧠 Method
-
-```mermaid
-flowchart LR
-    subgraph Ingest[Single-pass ingest · query unknown]
-        V[Video stream] --> O[Visual observer]
-        O --> M[Budgeted memory writer]
-    end
-
-    M --> S[(Immutable snapshot)]
-
-    subgraph Recall[Post-hoc recall · source isolated]
-        Q[Natural-language query] --> R[CLIP retrieval]
-        S --> R
-        R --> C[Temporal candidates]
-        C --> F[Bounded evidence allocator]
-        F --> T[TimeLens refinement]
-        T --> A[Span + evidence + confidence]
-    end
-
-    A --> U[Protocol audit]
-```
+![A single pass over the stream produces an immutable snapshot. A later query searches the snapshot for a time interval, evidence and an audit.](docs/assets/recall-flow.svg)
 
 StreamRecall separates ingestion from recall by construction. The writer stores
 sparse visual evidence and metadata under a real byte budget. At query time,
@@ -74,7 +33,7 @@ than the allowed evidence frames, and TimeLens optionally refines the selected
 interval. Invalid model output or insufficient evidence falls back safely—or
 returns an explicit `NOT_FOUND`.
 
-## 🔒 Protocol
+## Protocol
 
 | Capability | Conventional video QA | StreamRecall strict mode |
 |---|:---:|:---:|
@@ -90,25 +49,13 @@ The API never returns internal snapshot paths. Evidence endpoints serve only
 frame references cited by the persisted answer, while snapshot readers reject
 path traversal, hash mismatches, undeclared files, and budget violations.
 
-## 🎬 Product demo
+## Interactive workspace
 
-The repository ships a complete vertical slice—not only an evaluation script:
+The Next.js workspace shows memory timelines, temporal candidates, evidence cards and an agent trace. FastAPI streams turn events and persists sessions in SQLite. Strict uploads can discard the app-owned source once the snapshot is ready.
 
-- a **Next.js visual-memory workspace** with replay, memory timeline, candidates,
-  evidence cards, and developer trace;
-- a **FastAPI service** with typed session, conversation, recall, upload, and
-  evidence APIs;
-- **asynchronous query workers** and resumable Server-Sent Events;
-- **SQLite persistence** for sessions, turns, events, and recoverable failures;
-- strict MP4 ingestion that can delete the app-owned source after a valid final
-  snapshot is produced;
-- a deterministic, model-free backend that demonstrates the complete contract
-  without a GPU.
+The default local backend simulates recall so the interface runs without a GPU. The recorded demo above uses the CLIP + TimeLens backend. [API and workspace guide](apps/README.md)
 
-The bundled demo is deliberately labeled as simulated. Its predictions and
-latency are interface examples, not benchmark claims.
-
-## 🚀 Quick start
+## Quick start
 
 Requirements: Python 3.8+, Node.js 20.9+, and npm.
 
@@ -147,7 +94,7 @@ content hash, and byte budget before creating a session. See
 
 </details>
 
-## 📊 Evaluation
+## Evaluation
 
 StreamRecall includes a reproducible evaluation stack for delayed-query
 streaming video temporal grounding:
@@ -181,7 +128,7 @@ make test
 The browser suite lives in `apps/web/tests` and can be run with
 `npm run test:e2e` after installing a Playwright browser.
 
-## 🗂️ Repository map
+## Repository map
 
 ```text
 StreamRecall/
@@ -199,7 +146,7 @@ StreamRecall/
 Model checkpoints, datasets, uploads, runtime databases, logs, and generated
 results are intentionally excluded from Git.
 
-## 🧭 Scope and roadmap
+## Scope and roadmap
 
 StreamRecall is a research prototype—not a production surveillance, incident
 response, or safety-decision system.
@@ -210,10 +157,10 @@ response, or safety-decision system.
 - [x] Interactive product demo and strict upload path
 - [x] Reproducible evaluation and protocol audit stack
 - [ ] Complete formal evaluation across all frozen datasets
-- [ ] Publish a small redistributable end-to-end video example
+- [x] Publish a small redistributable end-to-end video example
 - [ ] Package a hardware-portable real-model deployment profile
 
-## 📜 License
+## License
 
 Code authored for this project is released under the [MIT License](LICENSE).
 
@@ -222,7 +169,7 @@ are governed by the upstream TimeLens license, which includes academic-use and
 geographic restrictions. Those terms are **not** replaced by this repository's
 MIT license. Datasets and models remain subject to their own upstream terms.
 
-## 📝 Citation
+## Citation
 
 If StreamRecall is useful in your research or engineering work, please cite the
 repository:
@@ -236,16 +183,10 @@ repository:
 }
 ```
 
-## 🙏 Acknowledgements
+## Acknowledgements
 
 StreamRecall builds on ideas and components from
 [TimeLens](https://github.com/TencentARC/TimeLens),
 [CLIP](https://github.com/openai/CLIP), and temporal video grounding research
 including SnAG. Third-party implementations remain attributed to their original
 authors and are not represented as official StreamRecall results.
-
----
-
-<div align="center">
-<sub>Built for a harder question than “what is in this video?”—what can an agent still prove after the video is gone?</sub>
-</div>

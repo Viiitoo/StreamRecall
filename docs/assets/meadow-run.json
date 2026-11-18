@@ -1,0 +1,79 @@
+{
+  "source": {
+    "title": "Big Buck Bunny",
+    "creator": "Blender Foundation",
+    "copyright_year": 2008,
+    "license": "CC BY 3.0",
+    "url": "https://media.w3.org/2010/05/bunny/movie.mp4",
+    "excerpt_s": [
+      60,
+      84
+    ],
+    "input_sha256": "5e231dcb25f7a6345e9d1adad8f337ea53e70a294d3d33d73474e2f977432da4"
+  },
+  "code_revision": "fcc39a6b0619e68ddc9f0f270507f30bcc44922a",
+  "session": {
+    "id": "ses_b55793f3214b",
+    "duration_s": 24.0,
+    "observed_until_s": 24.0,
+    "retained_frame_count": 12,
+    "state_bytes": 249637,
+    "memory_budget_bytes": 1048576,
+    "snapshot_sha256": "40c46f764d30a315988a1f21fdab135cae6ba161535d8538aaa68bddedd2bc97",
+    "source_retained": false
+  },
+  "turn": {
+    "id": "turn_e5b87638f123",
+    "user_message": "When does the rabbit lean down to smell the white flowers?",
+    "answer": {
+      "status": "FOUND",
+      "message": "事件发生在 8.0s–24.0s。",
+      "resolved_query": "When does the rabbit lean down to smell the white flowers?",
+      "span": {
+        "start_s": 8.0,
+        "end_s": 24.0
+      },
+      "confidence": 0.6608192473649979,
+      "evidence": [
+        {
+          "frame_ref": "000000240.jpg",
+          "timestamp_s": 10.0,
+          "role": "onset"
+        },
+        {
+          "frame_ref": "000000384.jpg",
+          "timestamp_s": 16.0,
+          "role": "action"
+        },
+        {
+          "frame_ref": "000000528.jpg",
+          "timestamp_s": 22.0,
+          "role": "offset"
+        }
+      ],
+      "alternatives": [],
+      "reason": "timelens_refinement_rejected_shrink_gate_keep",
+      "limitations": [
+        "答案只基于不可变快照中保留的视觉证据。"
+      ],
+      "audit": {
+        "snapshot_only": true,
+        "future_frames_used": false,
+        "model_calls": 1,
+        "unique_frames_used": 8,
+        "actual_byte_budget": true
+      },
+      "cost": {
+        "search_ms": 459,
+        "refine_ms": 2625,
+        "total_ms": 3091,
+        "generated_tokens": 16
+      },
+      "engine": {
+        "backend": "hybrid-v3",
+        "readout": "timelens_multicandidate_adaptive_v3",
+        "fallback_used": false
+      }
+    }
+  }
+}
